@@ -4,7 +4,7 @@ Windows环境下Bootloader链式加载的实现
 ### 项目描述
 高校计算机机房通常需承担多门课程的教学任务，因此往往需要配置多种操作系统环境以满足不同教学需求。为了确保系统的稳定性和可用性，操作系统的保护、克隆与还原功能对高校机房至关重要。
 VHDX是微软推出的虚拟硬盘格式，在Windows 8和Windows Server 2012及更高版本中广泛使用。差分磁盘是VHDX的一项核心功能，允许基于一个父磁盘创建多个子磁盘，仅记录子磁盘相对于父磁盘的差异数据。我们可以通过该机制创建差分系统，实现Windows系统的克隆与还原。﻿
-﻿https://uploader.shimo.im/f/LaqDzuZkyswgUoST.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3NDQ3ODg3MzUsImZpbGVHVUlEIjoiNXJrOUt5WTJtMnNsekQzeCIsImlhdCI6MTc0NDc4ODQzNSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwicGFhIjoiYWxsOmFsbDoiLCJ1c2VySWQiOjU1MTQ4MDkyfQ.yubk5XFznCUS12-OiDxAu7TU9FsPbs0A-YdT-RmZNeY![image](https://github.com/user-attachments/assets/590567f2-b0c6-4dbf-ba82-012b2f9d3017)
+![image](https://github.com/user-attachments/assets/590567f2-b0c6-4dbf-ba82-012b2f9d3017)
 Ventoy是一个多系统启动盘制作工具，通过动态加载多系统镜像文件（如ISO/WIM/VHDX）并模拟为虚拟磁盘，由GRUB生成启动菜单，实现灵活启动不同操作系统的机制。但GRUB不具备文件系统的写入权限，需要调用外部程序创建VHDX镜像。例如Clonezilla是一个分区和磁盘克隆工具，通过GRUB引导Clonezilla实现创建VHDX，进而实现系统保护与还原，但Clonezilla无法引导进入系统，需要重启再通过GRUB进入差分系统。我们可以对Windows或者linux中的Bootloader进行修改，使其能够通过文件系统修改、覆盖vhdx差分文件还原差分系统，并引导进入该差分系统的Bootloader；同时，还可实现Windows系统和Linux系统的Bootloader之间跨内核跳转。
 
 ###  预期目标
